@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Nossa Tabela Única para simplificar a vida!
+model Atividade {
+  id                   String   @id @default(uuid())
+  alunoId              Int      
+  titulo               String
+  descricao            String?
+  cargaHorariaPrevista Int
+  cargaHorariaReal     Int?
+  pdfVinculo           String   
+  pdfCertificado       String?  
+  status               String   @default("AGUARDANDO_COMISSAO")
+  ativo                Boolean  @default(true) 
+  criadoEm             DateTime @default(now())
+  atualizadoEm         DateTime @updatedAt
+}
